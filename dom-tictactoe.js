@@ -20,7 +20,7 @@ const handleClick = (element) => {
 
 const computerTurn = () => {
     if (gameover === false) {
-        // computerLogic();
+        computerLogic();
         while (move === false) {
             let row = Math.floor(Math.random()*3)
             let col = Math.floor(Math.random()*3)
@@ -118,7 +118,7 @@ const computerLogic = () => {
           move = true;
           }
         }
-      }
+      }``
     }
   }  
   //diagonal block
@@ -156,30 +156,19 @@ const addMarker = (id) => {
     checkForWin()
 }
 
-
-//   console.log(`you clicked the sq at ${row} and ${column}`)
-
-//   if (document.getElementById(id).innerHTML == '') {
-//     addMarker(id);
-//   }
-
-  // @TODO, Your code here: use the above information to change the board variable(array of arrays)
-  // HINT: in your browser open up the dev tools -> console
-// }
-
 const checkForWin = () => {
-  // calls each checkForWin possibility and if any are true gives a page alert,
   if(horizontalWin() || verticalWin() || diagonalWin()) {
     // **BONUS** you could make the dismissal of this alert window reset the board...
     gameover = true;
     setTimeout(()=> {
         window.alert(`Player ${currentMarker} won!`)
     }, 400)
-    // setTimeout(()=> {
-    //     resetBoard();
-    // }, 600)
+    } else if (tieGame()) {
+      gameover = true;
+      setTimeout(()=> {
+        window.alert('It\'s a tie!')
+      }, 400)
     } else {
-    // if no win, change the marker from X to O, or O to X for the next player.
     changeMarker()
   }
 }
@@ -190,28 +179,41 @@ const horizontalWin = () => {
     (board[1][0] === 'X' && board[1][1] === 'X' && board[1][2] === 'X') || 
     (board[1][0] === 'O' && board[1][1] === 'O' && board[1][2] === 'O') ||
     (board[2][0] === 'X' && board[2][1] === 'X' && board[2][2] === 'X') || 
-    (board[2][0] === 'O' && board[2][1] === 'O' && board[2][2] === 'O') ){ 
+    (board[2][0] === 'O' && board[2][1] === 'O' && board[2][2] === 'O')){ 
       return true;
     }
 }
 
 const verticalWin = () => {
-if((board[0][0] == 'X' && board[1][0] == 'X' && board[2][0] == 'X') || 
-    (board[0][0] == 'O' && board[1][0] == 'O' && board[2][0] == 'O') ||
-    (board[0][1] == 'X' && board[1][1] == 'X' && board[2][1] == 'X') || 
-    (board[0][1] == 'O' && board[1][1] == 'O' && board[2][1] == 'O') ||
-    (board[0][2] == 'X' && board[1][2] == 'X' && board[2][2] == 'X') || 
-    (board[0][2] == 'O' && board[1][2] == 'O' && board[2][2] == 'O') ){
+if((board[0][0] === 'X' && board[1][0] === 'X' && board[2][0] === 'X') || 
+    (board[0][0] === 'O' && board[1][0] === 'O' && board[2][0] === 'O') ||
+    (board[0][1] === 'X' && board[1][1] === 'X' && board[2][1] === 'X') || 
+    (board[0][1] === 'O' && board[1][1] === 'O' && board[2][1] === 'O') ||
+    (board[0][2] === 'X' && board[1][2] === 'X' && board[2][2] === 'X') || 
+    (board[0][2] === 'O' && board[1][2] === 'O' && board[2][2] === 'O')){
     return true;
     } 
 }
 
 const diagonalWin = () => {
-if(
-    (board[0][0] == 'X' && board[1][1] == 'X' && board[2][2] == 'X') || 
-    (board[0][0] == 'O' && board[1][1] == 'O' && board[2][2] == 'O') ||
-    (board[0][2] == 'X' && board[1][1] == 'X' && board[2][0] == 'X') || 
-    (board[0][0] == 'O' && board[1][1] == 'O' && board[2][2] == 'O')) {
+if((board[0][0] === 'X' && board[1][1] === 'X' && board[2][2] === 'X') || 
+    (board[0][0] === 'O' && board[1][1] === 'O' && board[2][2] === 'O') ||
+    (board[0][2] === 'X' && board[1][1] === 'X' && board[2][0] === 'X') || 
+    (board[0][0] === 'O' && board[1][1] === 'O' && board[2][2] === 'O')){
+    return true;
+    } 
+}
+
+const tieGame = () => {
+  if((board[0][0] === 'X' || board[0][0] === 'O') && 
+    (board[0][1] === 'X' || board[0][1] === 'O') &&
+    (board[0][2] === 'X' || board[0][2] === 'O') &&
+    (board[1][0] === 'X' || board[1][0] === 'O') &&
+    (board[1][1] === 'X' || board[1][1] === 'O') &&
+    (board[1][2] === 'X' || board[1][2] === 'O') &&
+    (board[2][0] === 'X' || board[2][0] === 'O') &&
+    (board[2][1] === 'X' || board[2][1] === 'O') &&
+    (board[2][2] === 'X' || board[2][2] === 'O')){
     return true;
     } 
 }
